@@ -1,6 +1,7 @@
-﻿Version=6.5
+﻿Version=5.02
 NumberOfModules=0
 Build1=Default,b4a.example
+Build2=test_udp,b4a.example.test.udp
 ManifestCode='This code will be applied to the manifest file during compilation.~\n~'You do not need to modify it in most cases.~\n~'See this link for for more information: http://www.basic4ppc.com/forum/showthread.php?p=78136~\n~AddManifestText(~\n~<uses-sdk android:minSdkVersion="4" android:targetSdkVersion="14"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>)~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~'End of default text.~\n~
 IconFile=
 NumberOfFiles=1
@@ -15,7 +16,7 @@ Library5=randomaccessfile
 #Region Module Attributes
 	#FullScreen: False
 	#IncludeTitle: True
-	#ApplicationLabel: Chambre SIN
+	#ApplicationLabel: UDP Test Arduino
 	#VersionCode: 1
 	#VersionName: 
 	#SupportedOrientations: portrait
@@ -23,17 +24,17 @@ Library5=randomaccessfile
 #End Region
 
 Sub Process_Globals
-    
-	
+    Dim Adressepc As String
 	
 End Sub
 
 Sub Globals
-	Dim test_button As Button
-	Private test_EditText As EditText
-	Private test_Label As Label
-	Private Descen As Button
-	Private Montee As Button
+	Private Connexion As Button
+	Private IP_Arduino_EditText As EditText
+	Dim button1 As Button
+	Dim EditText1 As EditText
+	Dim Label1 As Label
+	Private Arrete As Button
 	Private Messages As Label
 	Private Donnee_capteur As Label
 	Private Acquerir_capteur As Button
@@ -43,47 +44,42 @@ End Sub
 Sub Activity_Create(FirstTime As Boolean)
     Activity.LoadLayout("layout1")
     UDP.Initialise(3200)
+	
 End Sub
 
-Sub test_button_click
+Sub Connexion_Click
+	Adressepc=IP_Arduino_EditText.text
+End Sub
+
+Sub button1_click
 	Dim emission() As Byte
 	Dim bc As ByteConverter
 	Dim message As String
-	message=test_EditText.Text'"EPrise"
-	test_Label.Text=message
+	message=EditText1.Text'"EPrise"
+	Label1.Text=message
 	emission=bc.StringToBytes(message,"ASCII")
-	UDP.emission("192.168.1.205",5500,emission)
+	UDP.emission(Adressepc,5500,emission)
 End Sub
 	
 Sub UDP_PacketArrived (packet As UDPPacket)
     Dim message As String
 	message=UDP.reception(packet)
 	If message="acknowledged" Then
-		test_Label.Text=message
+   		Label1.Text=message
 	Else
 		Donnee_capteur.Text=message
 	End If
 		
 End Sub
 
-Sub Montee_Click
+Sub Arrete_Click
 	Dim emission() As Byte
 	Dim bc As ByteConverter
 	Dim message As String
-	message="Montee"
-	Messages.Text="Monter le Store"
+	message="Arrete"
+	Messages.Text="Arreter le Store"
 	emission=bc.StringToBytes(message,"ASCII")
-	UDP.emission("192.168.1.205",5500,emission)
-End Sub
-
-Sub Descen_Click
-	Dim emission() As Byte
-	Dim bc As ByteConverter
-	Dim message As String
-	message="Descen"
-	Messages.Text="Descendre le Store"
-	emission=bc.StringToBytes(message,"ASCII")
-	UDP.emission("192.168.1.205",5500,emission)
+	UDP.emission(Adressepc,5500,emission)
 End Sub
 
 Sub Acquerir_capteur_Click
@@ -93,5 +89,5 @@ Sub Acquerir_capteur_Click
 	message="Acquer"
 	Messages.Text="Acquisition des capteurs"
 	emission=bc.StringToBytes(message,"ASCII")
-	UDP.emission("192.168.1.205",5500,emission)
+	UDP.emission(Adressepc,5500,emission)
 End Sub
