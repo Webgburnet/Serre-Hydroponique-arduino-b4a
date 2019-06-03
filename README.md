@@ -48,12 +48,20 @@
 * Shield Wifi
 
 ### Analogique
-* A0: NC
-* A1: NC
+* A0: Humidity sol
+* A1: Light sensor
 * A2: NC
 * A3: NC
 * A4: NC
 * A5: NC
+* A6: NC
+* A7: NC
+* A8: Relais Chauffage
+* A9: Relais Ventilateur
+* A10: Relais Aimant
+* A11: Relais eclairage
+* A12: Relais brumisateur
+* A13: Relais pompe
 
 ### Digital
 * D0 : RX rs232 non utilise
@@ -64,7 +72,7 @@
 * D5 : NC
 * D6 : NC
 * D7 : NC
-* D8 : NC
+* D8 : DHT11
 * D9 : NC
 * D10 : NC
 * D11 : NC
@@ -72,8 +80,8 @@
 * D13 : NC 
 
 ### I2C
-* SDA : NC
-* SCL : NC
+* SDA : LCD ; NFC ; RTC
+* SCL : LCD ; NFC ; RTC
 
 ### Alimentation
 * Vin : NC
@@ -87,6 +95,6 @@
 * Reset : NC
 
 ## IHM
-| 4D Systems| B4A | AppInventor | Android |
-| :-----: | :------: | :-----: | :---------: |
-| ![](/icone/4D_Systems.png) | ![](/icone/B4A.png) | ![](/icone/AppInventor.png) | ![](/icone/Android.png) |
+| B4A | Android |
+| :-----: | :------: |
+| ![](/icone/B4A.png) | ![](/icone/Android.png) |
