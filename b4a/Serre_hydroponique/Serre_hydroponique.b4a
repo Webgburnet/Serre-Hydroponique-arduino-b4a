@@ -1,0 +1,162 @@
+﻿Version=5.02
+NumberOfModules=0
+Build1=Default,b4a.example
+Build2=test_udp,b4a.example.test.udp
+Build3=Serre_hydroponique,b4a.Serre_hydroponique
+ManifestCode='This code will be applied to the manifest file during compilation.~\n~'You do not need to modify it in most cases.~\n~'See this link for for more information: http://www.basic4ppc.com/forum/showthread.php?p=78136~\n~AddManifestText(~\n~<uses-sdk android:minSdkVersion="4" android:targetSdkVersion="14"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>)~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~'End of default text.~\n~
+IconFile=
+NumberOfFiles=1
+File1=layout1.bal
+NumberOfLibraries=5
+Library1=byteconverter
+Library2=core
+Library3=network
+Library4=udp
+Library5=randomaccessfile
+@EndOfDesignText@
+#Region Module Attributes
+	#FullScreen: False
+	#IncludeTitle: True
+	#ApplicationLabel: Serre hydroponique
+	#VersionCode: 1
+	#VersionName: 
+	#SupportedOrientations: portrait
+	#CanInstallToExternalStorage: False
+#End Region
+
+Sub Process_Globals
+    Dim Adressepc As String
+	
+End Sub
+
+Sub Globals
+	Private Connexion As Button
+	Private IP_Arduino_EditText As EditText
+
+	Private Brumisateur As ToggleButton
+	Private Chauffage As ToggleButton
+	Private Connexion_label As Label
+	Private Connexion_Panel As Panel
+	Private Electroaimant As ToggleButton
+	Private Electrovanne As ToggleButton
+	Private Emission_data As Label
+	Private Emission_Panel As Panel
+	Private IP_Arduino_Label As Label
+	Private Lampe As ToggleButton
+	Private Reception As Label
+	Private Reception_Panel As Panel
+	Private Ventillateur As ToggleButton
+	Private Acquerir As Button
+	Private Donnee As Label
+End Sub
+
+Sub Activity_Create(FirstTime As Boolean)
+    Activity.LoadLayout("layout1")
+    UDP.Initialise(3200)
+	
+End Sub
+
+Sub Connexion_Click
+  Adressepc=IP_Arduino_EditText.text
+    If (Adressepc="192.168.2.234") Then
+    IP_Arduino_Label.Text="Connexion réussie"
+	Else
+	IP_Arduino_Label.Text="Connexion échouer"
+	End If
+End Sub
+	
+Sub UDP_PacketArrived (packet As UDPPacket)
+    Dim message As String
+	message=UDP.reception(packet)
+	If message="acknowledged" Then
+   		Donnee.Text=message
+	Else
+		Donnee.Text=message
+		Donnee.TextColor=Colors.RGB(234, 54, 54)
+	End If
+		
+End Sub
+
+Sub Arrete_Click
+	Dim emission() As Byte
+	Dim bc As ByteConverter
+	Dim message As String
+	message="Arrete"
+	emission=bc.StringToBytes(message,"ASCII")
+	UDP.emission(Adressepc,5500,emission)
+End Sub
+
+Sub Acquerir_Click
+	Dim emission() As Byte
+	Dim bc As ByteConverter
+	Dim message As String
+	message="Acquer"
+	emission=bc.StringToBytes(message,"ASCII")
+	UDP.emission(Adressepc,5500,emission)
+End Sub
+
+Sub Ventillateur_CheckedChange(Checked As Boolean)
+	Dim emission() As Byte
+	Dim bc As ByteConverter
+	Dim message As String
+	If Checked=True Then message="VentiOFF"
+	If Checked=False Then message="VentiON"
+	
+	emission=bc.StringToBytes(message,"ASCII")
+	UDP.emission(Adressepc,5500,emission)
+End Sub
+
+Sub Brumisateur_CheckedChange(Checked As Boolean)
+	Dim emission() As Byte
+	Dim bc As ByteConverter
+	Dim message As String
+	If Checked=True Then message="BrumiOFF"
+	If Checked=False Then message="BrumiON"
+	
+	emission=bc.StringToBytes(message,"ASCII")
+	UDP.emission(Adressepc,5500,emission)
+End Sub
+
+Sub Electrovanne_CheckedChange(Checked As Boolean)
+	Dim emission() As Byte
+	Dim bc As ByteConverter
+	Dim message As String
+	If Checked=True Then message="VanneOFF"
+	If Checked=False Then message="VanneON"
+	
+	emission=bc.StringToBytes(message,"ASCII")
+	UDP.emission(Adressepc,5500,emission)
+End Sub
+
+Sub Electroaimant_CheckedChange(Checked As Boolean)
+	Dim emission() As Byte
+	Dim bc As ByteConverter
+	Dim message As String
+	If Checked=True Then message="AimantOFF"
+	If Checked=False Then message="AimantON"
+	
+	emission=bc.StringToBytes(message,"ASCII")
+	UDP.emission(Adressepc,5500,emission)
+End Sub
+
+Sub Lampe_CheckedChange(Checked As Boolean)
+	Dim emission() As Byte
+	Dim bc As ByteConverter
+	Dim message As String
+	If Checked=True Then message="EclairageOFF"
+	If Checked=False Then message="EclairageON"
+	
+	emission=bc.StringToBytes(message,"ASCII")
+	UDP.emission(Adressepc,5500,emission)
+End Sub
+
+Sub Chauffage_CheckedChange(Checked As Boolean)
+	Dim emission() As Byte
+	Dim bc As ByteConverter
+	Dim message As String
+	If Checked=True Then message="ChauffageOFF"
+	If Checked=False Then message="ChauffageON"
+	
+	emission=bc.StringToBytes(message,"ASCII")
+	UDP.emission(Adressepc,5500,emission)
+End Sub
