@@ -23,7 +23,7 @@
 ### SeeedStudio
 | Module 1 | Module 2 | Module 3 | Module 4|
 | :-------------: | :-------------: | :-------------: | :-------------: |
-| ![](/composants/SeeedStudio/GGrove_DHT11.jpg) | ![](/composants/SeeedStudio/Grove_LCD_RGB_Backlight.jpg) | ![](/composants/SeeedStudio/Grove_light.jpg) | ![](/composants/SeeedStudio/Grove_Moisture_sensor.jpg) |
+| ![](/composants/SeeedStudio/Grove_DHT11.jpg) | ![](/composants/SeeedStudio/Grove_LCD_RGB_Backlight.jpg) | ![](/composants/SeeedStudio/Grove_light.jpg) | ![](/composants/SeeedStudio/Grove_Moisture_sensor.jpg) |
 
 | Module 1 | Module 2 | Module 3 | Module 4|
 | :-------------: | :-------------: | :-------------: | :-------------: |
