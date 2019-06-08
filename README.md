@@ -40,7 +40,7 @@
 | :-------------: |
 | ![](/icone/Fritzing.png) |
 
-![](/fritzing/Untitled_Sketch.png)
+![](/fritzing/Untitled_Sketch.jpg)
 
 
 ### Shield
